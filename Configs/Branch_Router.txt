@@ -56,9 +56,6 @@ interface serial 0/2/1
  ip nat outside
  exit
 
-interface serial 0/2/1
- ip nat outside
- exit
 
  --- Save Configuration ---
 end
