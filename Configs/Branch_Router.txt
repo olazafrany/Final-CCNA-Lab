@@ -1,0 +1,66 @@
+ ==========================================
+ Branch Router Configuration
+ ==========================================
+
+enable
+configure terminal
+hostname R_B
+
+ --- LAN Interface ---
+interface gigabitethernet 0/1
+ ip address 10.1.1.1 255.255.255.0
+ no shutdown
+ exit
+
+ --- WAN Interface to HQ ---
+interface gigabitethernet 0/0
+ ip address 172.16.2.2 255.255.255.252
+ no shutdown
+ exit
+
+ --- OSPF Configuration ---
+router ospf 10
+ network 172.16.2.2 0.0.0.0 area 0
+ network 10.1.1.0 0.0.0.255 area 0
+ exit
+
+ --- Serial Interfaces to ISPs ---
+interface serial 0/2/0
+ ip address 40.1.1.1 255.255.255.252
+ no shutdown
+ exit
+
+interface serial 0/2/1
+ ip address 41.1.1.2 255.255.255.252
+ no shutdown
+ exit
+
+ --- Static Default Routes to ISPs ---
+ip route 0.0.0.0 0.0.0.0 serial 0/2/0
+ip route 0.0.0.0 0.0.0.0 serial 0/2/1 5
+
+--- NAT Configuration (Static) ---
+ip nat inside source static 10.1.1.10 100.100.100.100
+ip nat inside source static 10.1.1.20 8.8.8.8
+
+ --- NAT Inside/Outside Interfaces ---
+interface gigabitethernet 0/1
+ ip nat inside
+ exit
+
+interface serial 0/2/0
+ ip nat outside
+ exit
+
+interface serial 0/2/1
+ ip nat outside
+ exit
+
+interface serial 0/2/1
+ ip nat outside
+ exit
+
+ --- Save Configuration ---
+end
+write memory
+

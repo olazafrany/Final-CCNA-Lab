@@ -1,0 +1,31 @@
+ ==========================================
+ ISP2 Router Configuration
+ ==========================================
+
+enable
+configure terminal
+hostname ISP2
+
+ --- Serial Interface to Branch ---
+interface serial 0/1/1
+ ip address 41.1.1.1 255.255.255.252
+ clock rate 64000
+ no shutdown
+ exit
+
+ --- Static Routes to NAT Public IPs ---
+ip route 100.100.100.100 255.255.255.255 serial 0/1/1
+ip route 8.8.8.8 255.255.255.255 serial 0/1/1
+
+--- Interface to LAN (HSRP) ---
+interface gigabitethernet 0/0/0
+ ip address 42.2.2.2 255.255.255.0
+ standby 1 ip 42.2.2.3
+ no shutdown
+ exit
+
+
+--- Save Configuration ---
+end
+write memory
+

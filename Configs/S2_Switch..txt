@@ -1,0 +1,38 @@
+==========================================
+S2 Access Switch Configuration
+ ==========================================
+
+enable
+configure terminal
+hostname S2
+
+ --- VLAN Configuration ---
+vlan 10
+ name IT
+vlan 20
+ name HR
+exit
+
+ --- EtherChannel to Core ---
+interface range fastethernet 0/3 - 4
+ channel-group 2 mode desirable
+ exit
+interface port-channel 2
+ switchport mode trunk
+ exit
+
+ --- Access Ports for IT (VLAN 10) ---
+interface range fastethernet 0/10 - 11
+ switchport mode access
+ switchport access vlan 10
+ exit
+
+ --- Access Ports for HR (VLAN 20) ---
+interface range fastethernet 0/20 - 21
+ switchport mode access
+ switchport access vlan 20
+ exit
+
+ --- Save Configuration ---
+end
+write memory

@@ -1,0 +1,78 @@
+==========================================
+ Core Switch Configuration (Multilayer)
+==========================================
+
+enable
+configure terminal
+hostname Core
+
+VLAN Configuration
+vlan 10
+ name IT
+vlan 20
+ name HR
+exit
+
+EtherChannel to S1 (Port-Channel 1)
+
+interface range fastethernet 0/1 - 2
+ switchport mode access
+ channel-group 1 mode on
+ exit
+interface port-channel 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ exit
+
+
+EtherChannel to S2 (Port-Channel 2)
+
+interface range fastethernet 0/3 - 4
+ channel-group 2 mode desirable
+ exit
+interface port-channel 2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ exit
+
+
+SVI for VLAN 20 (HR)
+
+interface vlan 20
+ ip address 192.168.20.200 255.255.255.0
+ no shutdown
+ exit
+
+
+DHCP Configuration for HR VLAN
+ 
+ip dhcp excluded-address 192.168.20.1 192.168.20.5
+ip dhcp excluded-address 192.168.20.200
+ip dhcp pool HR_POOL
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+ dns-server 8.8.8.8
+ exit
+
+
+Access Port for HR
+
+interface fastethernet 0/10
+ switchport mode access
+ switchport access vlan 20
+ exit
+
+
+
+Trunk to HQ Router
+
+interface gigabitethernet 0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ exit
+
+
+Save Configuration 
+
+end
+write memory

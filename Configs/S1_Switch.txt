@@ -1,0 +1,44 @@
+ ==========================================
+ S1 Access Switch Configuration
+ ==========================================
+
+enable
+configure terminal
+hostname S1
+
+--- VLAN Configuration ---
+vlan 10
+ name IT
+vlan 20
+ name HR
+exit
+
+ --- EtherChannel to Core ---
+interface range fastethernet 0/1 - 2
+ channel-group 1 mode on
+ exit
+interface port-channel 1
+ switchport mode trunk
+ exit
+
+ --- Access Ports for IT (VLAN 10) ---
+interface range fastethernet 0/10 - 11
+ switchport mode access
+ switchport access vlan 10
+ exit
+
+ --- Access Ports for HR (VLAN 20) ---
+interface range fastethernet 0/20 - 21
+ switchport mode access
+ switchport access vlan 20
+ exit
+
+ --- Management SVI for VLAN 20 ---
+interface vlan 20
+ ip address 192.168.20.2 255.255.255.0
+ no shutdown
+ exit
+
+ --- Save Configuration ---
+end
+write memory

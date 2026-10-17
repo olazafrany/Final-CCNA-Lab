@@ -1,0 +1,19 @@
+ ==========================================
+ Port Security Configuration (Branch Switch)
+ ==========================================
+
+enable
+configure terminal
+
+ --- Apply Port Security on Fa0/15 ---
+interface fastethernet 0/15
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky
+ switchport port-security maximum 1
+ switchport port-security violation shutdown
+ exit
+
+--- Save Configuration ---
+end
+write memory

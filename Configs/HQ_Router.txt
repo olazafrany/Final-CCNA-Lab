@@ -1,0 +1,51 @@
+ ==========================================
+ HQ Router Configuration (Router-on-a-Stick)
+ ==========================================
+
+enable
+configure terminal
+hostname R_HQ
+
+--- Physical Interface to Core Switch (Trunk) ---
+interface gigabitethernet 0/0/1
+ no shutdown
+ exit
+
+--- Sub-interface for VLAN 10 (IT) ---
+interface gigabitethernet 0/0/1.10
+ encapsulation dot1q 10
+ ip address 192.168.10.1 255.255.255.0
+ exit
+
+--- Sub-interface for VLAN 20 (HR) ---
+interface gigabitethernet 0/0/1.20
+ encapsulation dot1q 20
+ ip address 192.168.20.1 255.255.255.0
+ exit
+
+--- Physical Interface to Branch Router ---
+interface gigabitethernet 0/0/0
+ ip address 172.16.2.1 255.255.255.252
+ no shutdown
+ exit
+
+--- OSPF Configuration ---
+router ospf 10
+ network 172.16.2.0 0.0.0.3 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ exit
+
+--- ACL to Block Ping from IT to Web Server ---
+access-list 101 deny icmp 192.168.10.0 0.0.0.255 host 10.1.1.10 echo
+access-list 101 deny icmp 192.168.10.0 0.0.0.255 host 10.1.1.10 echo-reply
+access-list 101 permit ip any any
+
+--- Apply ACL to Outside Interface (Towards Branch) ---
+interface gigabitethernet 0/0/0
+ ip access-group 101 out
+ exit
+
+--- Save Configuration ---
+end
+write memory
