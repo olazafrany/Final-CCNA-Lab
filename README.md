@@ -57,6 +57,3 @@ Here is a list of the configuration files included in this lab:
 
 ## Author
 - **olazafrany** - www.linkedin.com/in/ola-zafrany
-
----
-Don't forget to star ⭐ this repository.
