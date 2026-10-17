@@ -54,7 +54,7 @@
 - **Console Password:** Configured.
 - **VTY Password:** `cisco` (For Telnet access).
 - **Service Password-Encryption:** Enabled.
-- **Banner MOTD:** `Unauthorized Access is Prohibited!`
+- **Banner MOTD:** `hello`
 - Applied on HQ Router.
 
 ## 12. Technologies Studied (Not Implemented in This Lab)
