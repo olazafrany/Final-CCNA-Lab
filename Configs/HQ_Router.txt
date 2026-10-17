@@ -6,6 +6,15 @@ enable
 configure terminal
 hostname R_HQ
 
+ --- Device Security (Passwords & Banner) ---
+enable secret class
+service password-encryption
+banner motd # hello #
+line vty 0 4
+ password cisco
+ login
+ exit
+
 --- Physical Interface to Core Switch (Trunk) ---
 interface gigabitethernet 0/0/1
  no shutdown
