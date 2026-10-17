@@ -8,7 +8,7 @@ This repository contains my final CCNA lab project, simulated in **Cisco Packet 
 - VLANs and Inter-VLAN Routing (Router-on-a-Stick)
 - EtherChannel (PAgP and Static)
 - OSPF (Single Area)
-- NAT (Static)
+- NAT (Static and Overload)
 - ACL (Extended)
 - HSRP (First Hop Redundancy)
 - Port Security
@@ -46,7 +46,7 @@ Here is a list of the configuration files included in this lab:
 
 ## Technologies Used
 - OSPF
-- NAT (Static)
+- NAT (Static and Overload)
 - ACL (Extended)
 - HSRP
 - Port Security
@@ -54,6 +54,9 @@ Here is a list of the configuration files included in this lab:
 - EtherChannel
 - DHCP
 - Device Security
+
+## Author
+- **olazafrany** - www.linkedin.com/in/ola-zafrany
 
 ---
 Don't forget to star ⭐ this repository.
