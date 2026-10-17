@@ -21,6 +21,7 @@
 
 ## 5. NAT (Network Address Translation)
 - **Static NAT:** Maps internal servers to public IPs (`10.1.1.10` → `100.100.100.100`, `10.1.1.20` → `8.8.8.8`).
+- **NAT Overload (PAT):** Allows all Branch devices to access the internet using one public IP.
 - Applied on Branch Router.
 
 ## 6. ACL (Access Control List)
@@ -53,7 +54,7 @@
 - **Console Password:** Configured.
 - **VTY Password:** `cisco` (For Telnet access).
 - **Service Password-Encryption:** Enabled.
-- **Banner MOTD:** `hello`
+- **Banner MOTD:** `Unauthorized Access is Prohibited!`
 - Applied on HQ Router.
 
 ## 12. Technologies Studied (Not Implemented in This Lab)
@@ -61,11 +62,10 @@
 - RIP / EIGRP
 - IPv6 Routing
 - Standard ACL
-- Overload NAT (PAT)
 - Frame Relay
 - Point-to-Point Protocol (PPP)
 - Wireless Network
-- Telnet & DNS
+- DNS Server (Configured via NAT)
 - CDP
 - Backup Router Configurations
 - Recover Router Password
